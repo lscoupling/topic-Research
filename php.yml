@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: php-deployment
+  labels:
+    app: php
+spec:
+  template:
+    metadata:
+      labels:
+        app: php
+    spec:
+      containers:
+      - name: php
+        image: tgc101/lab-php:0.1
+  selector:
+    matchLabels:
+      app: php
+  replicas: 2
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: php
+spec:
+  type: ClusterIP
+  ports:
+    - targetPort: 9000
+      port: 9000
+  selector:
+    app: php

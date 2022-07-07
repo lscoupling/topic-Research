@@ -1,0 +1,11 @@
+stages:
+  - update
+
+update-nginx:
+  stage: update
+  tags:
+    - ubuntu2004-runner
+  only:
+    - main
+  script:
+    - cp README.md /tmp/ && sed -i "s/lab-php:0.1/lab-php:0.2/g" /lab/php.yml && kubectl apply -f /lab/php.yml

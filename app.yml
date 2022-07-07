@@ -1,0 +1,15 @@
+---
+- name: init k8s cluster
+  hosts: all
+  tasks:
+    - name: App apply
+      shell: |
+        mkdir -p /lab
+        wget https://how64bit.com/tgc101-devops-demo/db.yml -P /lab 
+        wget https://how64bit.com/tgc101-devops-demo/php.yml -P /lab 
+        wget https://how64bit.com/tgc101-devops-demo/nginx.yml -P /lab
+        chmod -R 770 /lab
+        kubectl apply -f /lab/.
+      when: 
+        - ansible_facts['hostname'] == 'master'
+    
